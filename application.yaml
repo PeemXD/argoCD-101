@@ -1,0 +1,28 @@
+# argo proj(ect)
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://gitlab.com/nanuchi/argocd-app-config.git
+    targetRevision: HEAD
+    path: dev
+  destination:
+    # svc == service
+    server: https://kubernetes.default.svc
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+
+    # by default, if file in git repo change will not trigger automated sync
+    # argo poll every 3 minutes
+    # but can use webhook
+    automated:
+      selfHeal: true # enable undo and overwrite
+      prune: true # enable delete
