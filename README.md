@@ -1,5 +1,7 @@
 #### Commands
 
+# in application must use public repo in this case
+
 ```bash
 minikube start
 # install ArgoCD in k8s
@@ -17,6 +19,13 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 #apply algoCD
 kubectl apply -f application.yaml
+
+# change in cluster
+kubectl edit deployment -n myapp myapp
+# if change replica argoCD will automatic change replicas to match git repo not manual config
+# but if you want to manual can config it
+
+
 
 
 ```
