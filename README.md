@@ -20,6 +20,10 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 #apply algoCD
 kubectl apply -f application.yaml
 
+# in UI
+## REFRESH: compare the latest code in git with the live state
+## SYNC: move to target state, by actually applying the changes to the k8s cluster
+
 # change in cluster
 kubectl edit deployment -n myapp myapp
 # if change replica argoCD will automatic change replicas to match git repo not manual config
